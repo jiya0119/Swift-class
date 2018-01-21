@@ -104,3 +104,43 @@ let couponDiscountClosure = {(source: Double) -> Double in
 
 let couponDiscountClosure2 = {$0 * 0.9}
 let price032703 = addVATClosure(157.6) //173.36
+
+
+//함수를 리턴하는 함수
+func makeAdder (x: Int) -> (Int) -> Int{ //x를 받고 int를 받아서 int를 리턴
+//함수 안에서 함수 정의 가능. 함수 안에서만 쓰는 함수
+  func adder(a: Int) -> Int {
+    return x + a
+  }
+  return adder
+}
+
+정수를 받아서, 정수를 리턴하는 함수를 리턴하는, 함수를 만들어주는 함수
+
+let add5 = makeAdder(5) //함수
+let add10 = makeAdder(10) //함수
+
+//그래서 이 둘에는 추가적인 매개변수를 넣어야 함
+
+print(add5(2)) //7
+print(add10(2)) //12
+
+
+//다른 방식
+//adder를 함수 말고 클로저로 만들어 리턴하기
+func makeAdder2 (x: Int) -> (Int) -> Int{
+  let adder: (Int) -> Int = {
+    return $0 + x
+  }
+  return adder
+}
+
+
+
+func makeAdder3 (x: Int) -> Int -> Int { //매개변수 괄호 생략 가능
+  return { //adder를 리턴하는데 이 이름이 필요 없음
+    return $0 + x //넘어오는 매개변수에 x를 더해서 리턴
+  }
+}
+
+print(makeAdder3(5)(2)) //makeAdder3(5) 함수에 2를 대입한 것 //7
