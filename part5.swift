@@ -144,3 +144,72 @@ func makeAdder3 (x: Int) -> Int -> Int { //매개변수 괄호 생략 가능
 }
 
 print(makeAdder3(5)(2)) //makeAdder3(5) 함수에 2를 대입한 것 //7
+
+
+//고차함수: 함수를 매개변수로 받는 것
+
+//함수 매핑하기
+//배열의 항목에 함수 적용하기
+//[a,b,c,d,e].map{f(x)}를 하면
+//[f(a),f(b),f(c),f(d),f(e)]
+
+let transactions = [560.0, 321.5, 190.0, 672.8, 1190.0, 450.0]
+
+func addVAT(source:Double) -> Double {
+  return source*1.1
+}
+
+var vatPrices:[Double] = []
+
+for transaction in transactions {
+  vatPrices += [addVAT(transaction)]
+}
+
+
+let vatMapPrices = transactions.map({ transaction -> Double in //클로저
+  return transaction*1.1
+})
+
+let vatMapPrices2 = transactions.map({$0 * 1.1})
+
+
+
+//filter
+//조건문 대체 가능
+//조건문을 단순화
+//배열에 적용하는 함수
+//조건이 들어간 함수를 배열 각각 요소에 적용, 조건에 맞는 것만 골라 새 배열 만듦
+//컬렉션의 항목들 중 조건에 맞는 항목만 찾아내기
+//[a,b,c,d,e].filter{x>100}를 하면 100보다 큰 항목들로 이뤄진 배열 리턴
+
+//큰 transaction들로만 이뤄진 배열 만들기
+var bigTransactions:[Double] = []
+
+for price in vatPrices {
+  if price >= 500 {
+    bigTransactions += [price]
+  }
+}
+
+
+let bigFilterTransactions = vatPrices.filter{$0 >= 500}
+
+var meetingRooms: [String: Int] = ["Bansky":"4", "Rivera":"8","Kahlo":"8", "Picasso":"10", "Cezanne":"20", "Matisse":"30"]
+let members = 9
+let available = meetingRooms.filter{$0.1>members}
+
+//filter는 보통 배열에 적용함.
+//딕셔너리에도 가능. 딕셔너리는 튜플처럼 접근 가능
+//하나하나 요소에 접근. 0은 string 1은 정수
+//저 딕셔너리의 value가 members보다 큰 meetingRoom만 남겨서 새로운 딕셔너리 만듦
+
+//available이라는 컬렉션은 딕셔너리가 아님 튜플로 구성된 것
+//0번 또는 1번. 튜플로 접근함
+
+print("\(available)")
+//[("Cezanne", 20), ...]
+
+print ("\(available[0])")
+//("Cezanne", 10)
+
+//딕셔너리가 배열이 아니기 때문에 filter를 적용하면 튜플로 이뤄진 배열로 바뀜
