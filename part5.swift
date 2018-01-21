@@ -213,3 +213,32 @@ print ("\(available[0])")
 //("Cezanne", 10)
 
 //딕셔너리가 배열이 아니기 때문에 filter를 적용하면 튜플로 이뤄진 배열로 바뀜
+
+
+//sort
+//컬렉션의 항목들을 조건에 맞게 순서를 바꾸기
+//[a,b,c,d,e].sort{$0>$1}을 하면 큰 항목이 앞으로 오는 정렬이 됨
+
+func ascendantSort (sort1: Double, sort2: Double) -> Bool {
+  return sort1 > sort2
+}
+
+let sortedPrices = vatPrices.sort(ascendantSort)
+//sort에는 정렬의 기준이 되는 함수를 넣음.
+
+//클로저로 간략하게
+let sortedPrices2 = vatPrices.sort({sort1, sort2 in
+  return sort1 > sort2
+})
+
+//클로저를 더 간략하게
+let sortedPrices3 = vatPrices.sort({$0 > $1})
+
+let sortedPrices4 = vatPrices.sort( > )
+
+
+let sortedMeetingRooms = meetingRooms.sort({$0.1 > $1.1}) //value끼리 비교
+
+
+//sort는 정렬 기준이 들어가 있는 함수를 매개변수로 받아서
+//특정 배열을 원하는 순서대로 정렬해줌
