@@ -60,6 +60,31 @@ class Employee {
   //이것이 class의 초기화가 구조체같은 value type의 초기화보다 복잡한 면.
   //여러개의 initializer를 만들어 놓고 편리한 것을 쓰면 됨
 
+  //employee가 주로 하는 작업을 추상화해보자.
+  func report () {
+    if let myBoss = boss { //boss는 옵셔널. 있는 경우 없는 경우
+      print ("\(self.name) reported to \(myBoss.name)")
+    } else {
+        print("\(name) don't have boss")
+    }
+    //report라는 인스턴스 메소드를 만들었음.
+
+    func callTaskToBoss() -> Task? {
+      if let myBoss = boss, callTo = myBoss.phoneNumber {
+        var callTask = Task(type: .call(callTo), owner: self)
+        return callTask
+      }
+      return nil
+
+    }
+
+  }
+
+
+
+
+
+
 }
 let me: Employee = Employee(name: "Alex")
 // me.name = "Alex"
@@ -85,14 +110,15 @@ struct Task {
     var time: Int?
 
     var owner: employee
-    var participant: Employee?
+    //var participant: Employee?
 
     var type: TaskType
 enum TaskType {
-  case Call
-  case Report
-  case Meet
-  case Support
+  case Call (number: String)
+  case Report (to: Employee, when: String)
+  case Meet(with: Employee, location: String)
+  case Support(who: Employee, duration: Int)
+
   //computed property
   var typeTitle: String {
     get {
@@ -117,11 +143,27 @@ init (type: TaskType, owner: Employee) { // Task를 초기화하는 데 있어 �
   self.title = type.typeTitle //얻어와서 초기화
   self.owner = owner //매개변수
   self.time = nil //옵셔널
-  self.participant = nil
+  //self.participant = nil
 }
 
 //초기화 메소드를 만들었기 때문에 Task 인스턴스를 좀 더 간단하게 만들 수 있음
 
+func doBasicTask() -> String {
+  let taskDescription: String
+  switch type {
+    case .Call(let number) : //call일 때 call 안의 값을 number로 받음
+      taskDescription = "\(owner.name) make a call to \(number)"
+    case .Report(let reciever, let time) :
+      taskDescription = "\(owner.name) report to \(receiver.name) at \(time)"
+    case .Meet(let participant, let location) :
+      taskDescription = "\(owner.name) meet \(participant.name) at \(location)"
+    case .Support(let taskOwner, let duration) :
+      taskDescription = "\(owner.name) support \(taskOwner.name) for \(duration) days"
+    default:
+      taskDescription = "Need more information for task."
+  }
+  return taskDescription
+}
 
 }
 class Employee {
@@ -150,3 +192,11 @@ class Employee {
 //그 타입으로 만든 인스턴스에서 필요한 작업이나 기능을 함수로 추상화해서 만들어 넣은 것
 //class, structure, enumeration은 모두 인스턴스 메소드를 가질 수 있다
 //self는 만들어진 인스턴스 그 자신을 가리킴
+
+
+//associated value
+//enum case에 값을 할당
+//case와 함께 추가적인 값을 저장하고 case 사용시 활용
+
+
+reportTask.doBasicTask()
