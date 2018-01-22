@@ -96,7 +96,7 @@ let addVATClosure3 = { source in
   source * 1.1 //return도 생략
 }
 
-let addVATClosure4 = { $0* 1.1}
+let addVATClosure4 = { $0*1.1}
 
 let couponDiscountClosure = {(source: Double) -> Double in
   return source * 0.9
@@ -115,7 +115,7 @@ func makeAdder (x: Int) -> (Int) -> Int{ //x를 받고 int를 받아서 int를 �
   return adder
 }
 
-정수를 받아서, 정수를 리턴하는 함수를 리턴하는, 함수를 만들어주는 함수
+// 정수를 받아서, 정수를 리턴하는 함수를 리턴하는, 함수를 만들어주는 함수
 
 let add5 = makeAdder(5) //함수
 let add10 = makeAdder(10) //함수
@@ -242,3 +242,43 @@ let sortedMeetingRooms = meetingRooms.sort({$0.1 > $1.1}) //value끼리 비교
 
 //sort는 정렬 기준이 들어가 있는 함수를 매개변수로 받아서
 //특정 배열을 원하는 순서대로 정렬해줌
+
+
+//reduce 함수
+//하나의 값으로 수렴
+//컬렉션의 항목들을 조건에 따라 하나의 값으로 만들기
+//[a,b,c,d,e].reduce(초기값, combine: +)를 하면
+//배열의 모든 값이 더해진 하나의 값 리턴
+//조건은 combine이라는 매개변수에 함수로 들어감
+
+//reduce함수는 우리의 작업을 좀 더 간단하게 만들어주는 범용함수
+
+func priceSum (base: Double, adder: Double) -> Double {
+    return base + adder
+}
+
+var sum: Double = 0.0
+for price in vatPrices {
+    sum = priceSum (sum, adder: price) //지금까지의 sum값을 매개변수로 넘겨주고 이번에 더할 값을 또 매개변수로 넘겨줌
+    //그러면 base에 adder가 더해져서 새로운 sum이 나올 것
+}
+
+
+//reduce로 간단하게 만들기
+var sum2: Double = 0.0
+let sumReduce = vatPrices.reduce(sum2, combine: priceSum)
+
+//더 간단하게
+let sumReduce2 = vatPrices.reduce(0.0, combine: {base, adder in
+    base + adder})
+
+//축약된 reduce
+let sumReduce3= vatPrices.reduce(0.0. combine: +)
+
+//reduce는 문자열도 가능
+let pricesInString = vatPrices.reduce("", combine: {$0 + "\($1)\n"})
+//$0: 첫번째 위치참조 변수에는 base값이 들어감. 다음에는 거기에 더할 adder가 들어가고.
+
+let descriptionString = meetingRooms.reduce("We have meeting rooms: \n",
+                                            combine: $0 + "\($1.0) for \($1.1) person \n")
+//딕셔너리를 이용하여 문자열을 만들어봄.
