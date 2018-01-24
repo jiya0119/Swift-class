@@ -55,7 +55,7 @@ class MeetingRoomListTableViewController: UITableViewController {
         
         //let categoryValue = Array(meetingRooms.values)[indexPath.section]
         
-        let categoryValue = meetingRoomsAtIndex(indexPath.section).value
+        let categoryValue = meetingRoomsAtIndex(index: indexPath.section).value
         let orderedCategoryValue = categoryValue.sorted(by:{$0.1 < $1.1})
         let roomName = orderedCategoryValue[indexPath.row].0
         let capacity = orderedCategoryValue[indexPath.row].1
