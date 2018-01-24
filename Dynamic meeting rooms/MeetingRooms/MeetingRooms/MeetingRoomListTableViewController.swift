@@ -13,6 +13,11 @@ class MeetingRoomListTableViewController: UITableViewController {
     
     var meetingRooms: [String:[String:Int]] = ["Meeting":["Banksy":4, "Rivera":8, "Kahlo":8, "Picasso":10], "Seminar":["Cezanne":20,"Matisse":30, "Renoir": 40]]
     
+    func meetingRoomsAtIndex(index: Int) -> (key: String, value: [String:Int]){
+        let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
+    return orderedMeetingRooms[index]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,8 +41,9 @@ class MeetingRoomListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // let categoryValues = Array(meetingRooms.values)[section]
-        let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
-        let rowCount = orderedMeetingRooms[section].1.count
+        //let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
+        
+        let rowCount = meetingRoomsAtIndex(index: section).value.count
         return rowCount
     }
 
@@ -45,15 +51,15 @@ class MeetingRoomListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
         
-        let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
+        //let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
         
         //let categoryValue = Array(meetingRooms.values)[indexPath.section]
         
-        let categoryValue = orderedMeetingRooms[indexPath.section].1
-
-        let roomName = Array(categoryValue.keys)[indexPath.row]
-        let capacity = Array(categoryValue.values)[indexPath.row]
-        
+        let categoryValue = meetingRoomsAtIndex(indexPath.section).value
+        let orderedCategoryValue = categoryValue.sorted(by:{$0.1 < $1.1})
+        let roomName = orderedCategoryValue[indexPath.row].0
+        let capacity = orderedCategoryValue[indexPath.row].1
+       
         cell.textLabel!.text = roomName
         cell.detailTextLabel!.text = "\(capacity)"
         
@@ -63,11 +69,13 @@ class MeetingRoomListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Array(meetingRooms.keys)[section]
+        //let orderedMeetingRooms = meetingRooms.sorted(by:{$0.1.first!.1 < $1.1.first!.1})
+        return meetingRoomsAtIndex(index:section).key
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        let rowCount = Array(meetingRooms.values)[section].count
+        let orderedMeetingRooms = meetingRooms.sorted(by:{$0.1.first!.1 < $1.1.first!.1})
+        let rowCount = meetingRoomsAtIndex(index:section).value.count
         return "\(rowCount) rooms"
     }
 
