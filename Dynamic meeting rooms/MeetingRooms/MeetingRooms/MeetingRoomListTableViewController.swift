@@ -35,16 +35,21 @@ class MeetingRoomListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let categoryValues = Array(meetingRooms.values)[section]
-        return categoryValues.count
+        // let categoryValues = Array(meetingRooms.values)[section]
+        let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
+        let rowCount = orderedMeetingRooms[section].1.count
+        return rowCount
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
-
-        let categoryValue = Array(meetingRooms.values)[indexPath.section]
         
+        let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
+        
+        //let categoryValue = Array(meetingRooms.values)[indexPath.section]
+        
+        let categoryValue = orderedMeetingRooms[indexPath.section].1
 
         let roomName = Array(categoryValue.keys)[indexPath.row]
         let capacity = Array(categoryValue.values)[indexPath.row]
