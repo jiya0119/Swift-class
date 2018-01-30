@@ -35,7 +35,18 @@
                             <outlet property="delegate" destination="SaZ-yK-zjy" id="SCs-Ts-34h"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="지점" id="ksX-Us-Dyl"/>
+                    <navigationItem key="navigationItem" title="지점" id="ksX-Us-Dyl">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Tp2-AV-vmv">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="20M-1e-Zop">
+                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <connections>
+                                <action selector="locationTurnOn:" destination="SaZ-yK-zjy" id="UIb-o4-NRb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mP6-pS-pfH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -214,6 +225,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="TPX-nm-cq7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s1y-UP-mNN">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
