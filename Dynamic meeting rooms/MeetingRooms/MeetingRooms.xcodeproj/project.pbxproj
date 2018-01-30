@@ -17,6 +17,7 @@
 		C23CF1782018487E00020799 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C23CF1762018487E00020799 /* LaunchScreen.storyboard */; };
 		C23CF1832018487E00020799 /* MeetingRoomsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23CF1822018487E00020799 /* MeetingRoomsUITests.swift */; };
 		C23CF18E2018490900020799 /* MeetingRoomListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23CF18D2018490900020799 /* MeetingRoomListTableViewController.swift */; };
+		C269EC42202093A300EEBD8F /* RoomInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C269EC41202093A300EEBD8F /* RoomInfoTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		C23CF1822018487E00020799 /* MeetingRoomsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRoomsUITests.swift; sourceTree = "<group>"; };
 		C23CF1842018487E00020799 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C23CF18D2018490900020799 /* MeetingRoomListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRoomListTableViewController.swift; sourceTree = "<group>"; };
+		C269EC41202093A300EEBD8F /* RoomInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoomInfoTableViewController.swift; path = Assets.xcassets/RoomInfoTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				C23CF16D2018487E00020799 /* AppDelegate.swift */,
 				C23CF16F2018487E00020799 /* ViewController.swift */,
 				C23CF1712018487E00020799 /* Main.storyboard */,
+				C269EC41202093A300EEBD8F /* RoomInfoTableViewController.swift */,
 				AC0A00EC201F1F2B00D430E0 /* DataCenter.swift */,
 				AC0A00EE201F21D900D430E0 /* BranchListTableViewController.swift */,
 				AC0A00F0201F21EF00D430E0 /* ServiceListTableViewController.swift */,
@@ -213,6 +216,7 @@
 			files = (
 				AC0A00EF201F21D900D430E0 /* BranchListTableViewController.swift in Sources */,
 				C23CF1702018487E00020799 /* ViewController.swift in Sources */,
+				C269EC42202093A300EEBD8F /* RoomInfoTableViewController.swift in Sources */,
 				C23CF18E2018490900020799 /* MeetingRoomListTableViewController.swift in Sources */,
 				AC0A00ED201F1F2B00D430E0 /* DataCenter.swift in Sources */,
 				C23CF16E2018487E00020799 /* AppDelegate.swift in Sources */,
