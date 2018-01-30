@@ -11,7 +11,7 @@ import UIKit
 
 class MeetingRoomListTableViewController: UITableViewController {
     
-    var meetingRooms: [String:[String:Int]] = ["Meeting":["Banksy":4, "Rivera":8, "Kahlo":8, "Picasso":10], "Seminar":["Cezanne":20,"Matisse":30, "Renoir": 40]]
+    var service : Service?
     
     func meetingRoomsAtIndex(index: Int) -> (key: String, value: [String:Int]){
         let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
@@ -26,6 +26,8 @@ class MeetingRoomListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.title = service?.name
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,19 +38,26 @@ class MeetingRoomListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-          return meetingRooms.count
+          return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // let categoryValues = Array(meetingRooms.values)[section]
+<<<<<<< HEAD
         //let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
         
         let rowCount = meetingRoomsAtIndex(index: section).value.count
+=======
+        guard let rowCount = service?.items?.count else {
+            return 0
+        }
+>>>>>>> origin/master
         return rowCount
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+<<<<<<< HEAD
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
         
         //let orderedMeetingRooms = meetingRooms.sorted(by: {$0.1.first!.1 < $1.1.first!.1})
@@ -62,12 +71,21 @@ class MeetingRoomListTableViewController: UITableViewController {
        
         cell.textLabel!.text = roomName
         cell.detailTextLabel!.text = "\(capacity)"
+=======
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
+>>>>>>> origin/master
         
+        guard let meetingRoom = service?.items?[indexPath.row] else {
+            return cell
+        }
         
+        cell.textLabel!.text = meetingRoom.name
+        cell.detailTextLabel!.text = String(meetingRoom.capacity)
 
         return cell
     }
     
+<<<<<<< HEAD
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //let orderedMeetingRooms = meetingRooms.sorted(by:{$0.1.first!.1 < $1.1.first!.1})
         return meetingRoomsAtIndex(index:section).key
@@ -78,6 +96,9 @@ class MeetingRoomListTableViewController: UITableViewController {
         let rowCount = meetingRoomsAtIndex(index:section).value.count
         return "\(rowCount) rooms"
     }
+=======
+
+>>>>>>> origin/master
 
 
     /*
@@ -115,14 +136,22 @@ class MeetingRoomListTableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+    
+        if segue.identifier == "MeetingRoomSegue" {
+            guard let destination = segue.destination as? MeetingRoomListTableViewController, let selectedIndex = self.tableView.indexPathForSelectedRow?.row else {
+                return
+            }
+            destination.service = service
+        }
+    
     }
-    */
+
 
 }
